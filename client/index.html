@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <!--ADDED from https://realfavicongenerator.net/-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <!--ADDED from https://realfavicongenerator.net/-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <title>JRY</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        div.head {
+            text-align: center;
+            height: 100%;
+            display: table;
+            width: 100%;
+        }
+
+        div.container {
+            display: table-cell;
+            vertical-align: middle;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: "Roboto";
+            font-weight: bold;
+            font-size: 10em;
+            color: rgb(160, 160, 160);
+            margin: 0px;
+        }
+
+        p {
+            font-family: "Roboto";
+            color: rgb(160, 160, 160);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <div class="container">
+            <h1>JRY</h1>
+            <p id="temp"></p>
+
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    function updateUi(id, value) {
+        var s = document.getElementById(id);
+        s.innerHTML = value;
+    }
+    getTemp();
+
+    setInterval(getTemp, 30000);
+    function getTemp() {
+        try {
+            fetch('https://intra.jry.fi/tempLatest')
+                .then(res => res.json())
+                .then(res => {
+                    if(res && res.temp && res.hum){
+                        updateUi("temp", 
+                        `Temperature: ${res.temp} &deg;C, Humidity: ${res.hum} %<br>
+                        Time: ${new Date(res.date).toLocaleString()}`);
+                    }
+                    console.log(res);
+                })
+                .catch(error => console.log(error))
+        } catch (error) {
+            console.log(error)
+
+        }
+    };
+
+</script>
+
+</html>

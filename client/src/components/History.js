@@ -71,6 +71,7 @@ class History extends Component {
                         //console.log(res);
                         this.setState({ maindata: res })
                         this.genD(res);
+                        this.setSlider(res);
                     }
                 })
                 .catch(error => console.log(error))
@@ -298,7 +299,7 @@ class History extends Component {
                     {t && h ?
                         <div style={{ height: '100%', width: '100%' }}>
                             <ResponsiveLine {...propsChart} />
-                            <div style={{ width: "100%" }} ref={this.sliderRef} />
+                            <div style={{ width: "90%", margin:"auto" }} ref={this.sliderRef} />
                         </div>
                         :
                         <ClipLoader

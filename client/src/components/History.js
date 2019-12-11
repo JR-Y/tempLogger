@@ -296,16 +296,18 @@ class History extends Component {
                 </button>
                 <div style={{ height: '50%' }}>
                     {t && h ?
-                        <ResponsiveLine {...propsChart} />
-                        <div style={{ width: "100%" }} ref={this.sliderRef}>
-                            :
+                        <div style={{ height: '100%', width: '100%' }}>
+                            <ResponsiveLine {...propsChart} />
+                            <div style={{ width: "100%" }} ref={this.sliderRef} />
+                        </div>
+                        :
                         <ClipLoader
-                                loading={true}
-                                size={30}
-                            />}
+                            loading={true}
+                            size={30}
+                        />}
                 </div>
             </div>
-                )
-            }
-        }
+        )
+    }
+}
 export default withRouter(History);

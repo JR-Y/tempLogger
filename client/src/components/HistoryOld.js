@@ -2,25 +2,12 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { ResponsiveLine } from "@nivo/line"
 
-const API_HOME = "/api/";
-const TABLE = "tempQuery";
 
-class Temp {
-    constructor(id, date, temp, hum) {
-        this._id = id;
-        this.date = date;
-        this.temp = temp;
-        this.hum = hum;
-    }
-}
 
-class History extends Component {
+class HistoryOld extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            maindata: [
-                new Temp("", undefined, null, null)
-            ],
             interval: null
         }
     }
@@ -35,40 +22,9 @@ class History extends Component {
     componentWillUnmount() {
         clearInterval(this.state.interval);
     }
-    getData = () => {
+    getData = ()=>{
         this.getCurrent();
-        this.getRange();
-    }
-    getRange = () => {
-        console.log("getting data");
-        const params = {
-            start: new Date(Date.now() - 604800000),
-            end: new Date()
-        };
-        let path = `${window.location.protocol}//${window.location.hostname}:${window.location.port}${API_HOME}${TABLE}`
-        console.log(path)
-        let url = new URL(path);
-        if (params) {
-            Object.keys(params).forEach(key => {
-                url.searchParams.append(key, params[key]);
-            })
-        }
-        try {
-            fetch(url)
-                .then(res => res.json())
-                .then(res => {
-                    if (res) {
-                        //console.log("got data");
-                        //console.log("if res: ");
-                        //console.log(res);
-                        this.setState({ maindata: res })
-                        this.genD(res);
-                    }
-                })
-                .catch(error => console.log(error))
-        } catch (error) {
-            console.log(error)
-        }
+        this.getAll();
     }
     getAll = () => {
         console.log("getting data");
@@ -91,19 +47,19 @@ class History extends Component {
     }
     getCurrent = () => {
         try {
-            fetch('/api/tempLatest')
-                .then(res => res.json())
-                .then(res => {
-                    if (res && res.temp && res.hum) {
-                        this.setState({ temp: res.temp, hum: res.hum, timest: res.date })
-                    }
-                    console.log(res);
-                })
-                .catch(error => console.log(error))
+          fetch('/api/tempLatest')
+            .then(res => res.json())
+            .then(res => {
+              if (res && res.temp && res.hum) {
+                this.setState({ temp: res.temp, hum:res.hum, timest:res.date })
+              }
+              console.log(res);
+            })
+            .catch(error => console.log(error))
         } catch (error) {
-            console.log(error)
+          console.log(error)
         }
-    }
+      }
 
     genD = (maindata) => {
         /*
@@ -255,4 +211,4 @@ class History extends Component {
         )
     }
 }
-export default withRouter(History);
+export default withRouter(HistoryOld);

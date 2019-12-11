@@ -178,10 +178,11 @@ class History extends Component {
     }
 
     render() {
-        const { t, h, temp, hum, timest, dynamicFiltering } = this.state;
+        const { temp, hum, timest, dynamicFiltering } = this.state;
+        let { t, h } = this.state;
         //console.log(t)
         //console.log(h)
-        let propsChart={};
+        let propsChart = {};
 
         if (t && h) {
             t = this.filterDataSet(t);

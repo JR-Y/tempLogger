@@ -254,51 +254,50 @@ class History extends Component {
             }}>
                 <div>
                     <div style={{
-                        width:"100%",
+                        width: "100%",
                         display: "grid",
                         gridTemplateColumns: "repeat(3, 1fr)"
                     }}>
                         <div style={{
                             gridColumn: "1",
-                            textAlign:"center"
+                            textAlign: "center"
                         }}>
                             <p style={{
                                 fontSize: "3vw",
-                                marginBlockStart:"0.5em",
-                                marginBlockEnd:"0.5em",
+                                marginBlockStart: "0.5em",
+                                marginBlockEnd: "0.5em",
                                 fontFamily: "Roboto",
                                 color: 'rgb(160, 160, 160)'
                             }}>
-                                {`${temp} \u00B0C`}
+                                {`${temp ? temp : "-"} \u00B0C`}
                             </p>
                         </div>
                         <div style={{
                             gridColumn: "2",
-                            textAlign:"center"
+                            textAlign: "center"
                         }}>
                             <p style={{
                                 fontSize: "3vw",
-                                marginBlockStart:"0.5em",
-                                marginBlockEnd:"0.5em",
+                                marginBlockStart: "0.5em",
+                                marginBlockEnd: "0.5em",
                                 fontFamily: "Roboto",
                                 color: 'rgb(160, 160, 160)'
                             }}>
-                                {/*`${time}`*/}
                                 <Time />
                             </p>
                         </div>
                         <div style={{
                             gridColumn: "3",
-                            textAlign:"center"
+                            textAlign: "center"
                         }}>
                             <p style={{
                                 fontSize: "3vw",
-                                marginBlockStart:"0.5em",
-                                marginBlockEnd:"0.5em",
+                                marginBlockStart: "0.5em",
+                                marginBlockEnd: "0.5em",
                                 fontFamily: "Roboto",
                                 color: 'rgb(160, 160, 160)'
                             }}>
-                                {`RH: ${hum} %`}
+                                {`RH: ${hum ? hum : "-"} %`}
                             </p>
                         </div>
                     </div>

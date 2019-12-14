@@ -33,7 +33,6 @@ class History extends Component {
     }
 
     componentDidMount() {
-        console.log("component did mount");
         this.getData();
         let interv = setInterval(this.getData, 30000);
         this.setState({ interval: interv })
@@ -47,14 +46,12 @@ class History extends Component {
         this.getRange();
     }
     getRange = () => {
-        console.log("getting data");
         const params = {
             start: new Date(Date.now() - 604800000),
             end: new Date()
         };
         let path = `${window.location.protocol}//${window.location.hostname}:${window.location.port}${API_HOME}${TABLE}`
-        //let path = `https://intra.jry.fi${API_HOME}${TABLE}`
-        console.log(path)
+        //console.log(path)
         let url = new URL(path);
         if (params) {
             Object.keys(params).forEach(key => {
@@ -66,9 +63,6 @@ class History extends Component {
                 .then(res => res.json())
                 .then(res => {
                     if (res) {
-                        //console.log("got data");
-                        //console.log("if res: ");
-                        //console.log(res);
                         this.setState({ maindata: res })
                         this.genD(res);
                         this.setSlider(res);
@@ -115,7 +109,7 @@ class History extends Component {
         if (maindata && Array.isArray(maindata)) {
             let min = new Date(maindata[0].date).getTime();
             let max = new Date(maindata[maindata.length - 1].date).getTime();
-            console.log(`min:${min}_max:${max}`)
+            console.log(`min:${min.toLocaleString()}_max:${max.toLocaleString()}`)
             let sliderRange = this.sliderRef.current;
             let slider = noUiSlider.create(sliderRange, {
                 start: [min, max],
@@ -127,19 +121,13 @@ class History extends Component {
                 }
             });
             slider.on('slide', (values, handle, unencoded, tap, positions) => {
-                //console.log(`SLIDE___Lower: ${values[0]}, Upper:${values[1]}`)
-                //this.setState({filterValues:values})
-                //localStorage.setItem("values",JSON.stringify(values))
+
             });
             slider.on('set', (values, handle, unencoded, tap, positions) => {
-                //console.log(`SET___Lower: ${values[0]}, Upper:${values[1]}`)
                 this.setState({ filterMin: new Date(Math.round(values[0])), filterMax: new Date(Math.round(values[1])) })
-                //localStorage.setItem("values",JSON.stringify(values))
             });
             slider.on('end', (values, handle, unencoded, tap, positions) => {
-                //console.log(`END___Lower: ${values[0]}, Upper:${values[1]}`)
-                //this.setState({filterValues:values})
-                //localStorage.setItem("values",JSON.stringify(values))
+
             });
 
         }
@@ -154,8 +142,6 @@ class History extends Component {
         }
 
         if (ds && Array.isArray(ds)) {
-            //console.log(ds.length)
-            //console.log(ds.length / 2000)
             let minimizeRounds = Math.round(ds.length / 2000);
 
             if (minimizeRounds > 1 && dynamicFiltering) {
@@ -170,9 +156,6 @@ class History extends Component {
                 })
                 ds = newSet;
             }
-            //console.log("after")
-            //console.log(ds.length)
-            //console.log(ds.length / 2000)
         }
 
         return ds;
@@ -181,8 +164,6 @@ class History extends Component {
     render() {
         const { temp, hum, timest, dynamicFiltering } = this.state;
         let { t, h } = this.state;
-        //console.log(t)
-        //console.log(h)
         let propsChart = {};
 
         if (t && h) {
@@ -270,11 +251,9 @@ class History extends Component {
                             <h1 style={{
                                 fontFamily: "Roboto",
                                 fontWeight: 'bold',
-                                fontSize: '10em',
                                 color: 'rgb(160, 160, 160)',
                                 margin: '0px'
-                            }}>JRY
-          </h1>
+                            }}>JRY</h1>
                             <p style={{
                                 fontFamily: "Roboto",
                                 color: 'rgb(160, 160, 160)'
@@ -298,8 +277,10 @@ class History extends Component {
                 <div style={{ height: '50%' }}>
                     {t && h ?
                         <div style={{ height: '100%', width: '100%' }}>
-                            <ResponsiveLine {...propsChart} />
-                            <div style={{ width: "90%", margin:"auto" }} ref={this.sliderRef} />
+                            <ResponsiveLine {...propsChart} style={{ width: "90%", height:"80%", margin: "auto" }} />
+                            <div style={{ width: "100%", height:"20%", margin: "auto" }}>
+                            <div style={{ width: "90%", margin: "auto" }} ref={this.sliderRef} />
+                            </div>
                         </div>
                         :
                         <ClipLoader

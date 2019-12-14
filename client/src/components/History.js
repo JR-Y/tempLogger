@@ -236,7 +236,7 @@ class History extends Component {
                 height: "95vh",
                 paddingBottom: '30px'
             }}>
-                <div style={{ height: '50%' }}>
+                <div>
                     <div style={{
                         textAlign: 'center',
                         height: '100%',
@@ -276,10 +276,21 @@ class History extends Component {
                 </button>
                 <div style={{ height: '50%' }}>
                     {t && h ?
-                        <div style={{ height: '100%', width: '100%' }}>
-                            <ResponsiveLine {...propsChart} style={{ width: "90%", height:"80%", margin: "auto" }} />
-                            <div style={{ width: "100%", height:"20%", margin: "auto" }}>
-                            <div style={{ width: "90%", margin: "auto" }} ref={this.sliderRef} />
+                        <div style={{ minHeight: '400px', height: '85vh' }}>
+                            <div style={{ width: "90%", height: "80%", margin: "auto" }}>
+                                <ResponsiveLine {...propsChart} />
+                            </div>
+                            <div style={{
+                                width: "90%",
+                                height: "20%",
+                                margin: "auto",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center"
+                            }}>
+                                <div style={{ width: "100%", paddingLeft: "34px", paddingRight: "34px" }}>
+                                    <div style={{ width: "100%" }} ref={this.sliderRef} />
+                                </div>
                             </div>
                         </div>
                         :

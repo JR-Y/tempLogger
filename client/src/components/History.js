@@ -254,6 +254,41 @@ class History extends Component {
                                 color: 'rgb(160, 160, 160)',
                                 margin: '0px'
                             }}>JRY</h1>
+                            <div style={{
+                                display: "grid",
+                                gridTemplateColumns: "repeat(3, 1fr)"
+                            }}>
+                                <div style={{
+                                    gridColumn: "1"
+                                }}>>
+                                    <p style={{
+                                        fontFamily: "Roboto",
+                                        color: 'rgb(160, 160, 160)'
+                                    }}>
+                                        {`Temperature: ${temp} \u00B0C`}
+                                    </p>
+                                </div>
+                                <div style={{
+                                    gridColumn: "2"
+                                }}>>
+                                    <p style={{
+                                        fontFamily: "Roboto",
+                                        color: 'rgb(160, 160, 160)'
+                                    }}>
+                                        {`Time: ${new Date(timest).toLocaleString()}`}
+                                    </p>
+                                </div>
+                                <div style={{
+                                    gridColumn: "3"
+                                }}>>
+                                    <p style={{
+                                        fontFamily: "Roboto",
+                                        color: 'rgb(160, 160, 160)'
+                                    }}>
+                                        {`Humidity: ${hum} %`}
+                                    </p>
+                                </div>
+                            </div>
                             <p style={{
                                 fontFamily: "Roboto",
                                 color: 'rgb(160, 160, 160)'

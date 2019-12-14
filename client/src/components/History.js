@@ -4,6 +4,7 @@ import { ResponsiveLine } from "@nivo/line";
 import noUiSlider from 'nouislider';
 import 'nouislider/distribute/nouislider.css';
 import { ClipLoader } from 'react-spinners';
+import Time from './Time';
 
 const API_HOME = "/api/";
 const TABLE = "tempQuery";
@@ -34,16 +35,31 @@ class History extends Component {
 
     componentDidMount() {
         this.getData();
+        //let timeInterv = setInterval(this.getTime, 100);
         let interv = setInterval(this.getData, 30000);
-        this.setState({ interval: interv })
+        this.setState({
+            interval: [
+                interv,
+                //timeInterv
+            ]
+        })
     }
 
     componentWillUnmount() {
-        clearInterval(this.state.interval);
+        const { interval } = this.state;
+        if (Array.isArray(interval)) {
+            interval.forEach(val => {
+                clearInterval(val);
+            })
+        }
     }
     getData = () => {
         this.getCurrent();
         this.getRange();
+    }
+    getTime = () => {
+        //console.log("time")
+        this.setState({ time: new Date().toLocaleString() })
     }
     getRange = () => {
         const params = {
@@ -162,7 +178,7 @@ class History extends Component {
     }
 
     render() {
-        const { temp, hum, timest, dynamicFiltering } = this.state;
+        const { temp, hum, dynamicFiltering, time } = this.state;
         let { t, h } = this.state;
         let propsChart = {};
 
@@ -238,70 +254,54 @@ class History extends Component {
             }}>
                 <div>
                     <div style={{
-                        textAlign: 'center',
-                        height: '100%',
-                        display: 'table',
-                        width: '100%'
+                        width:"100%",
+                        display: "grid",
+                        gridTemplateColumns: "repeat(3, 1fr)"
                     }}>
                         <div style={{
-                            display: 'table-cell',
-                            verticalAlign: 'middle',
-                            width: '100%',
+                            gridColumn: "1",
+                            textAlign:"center"
                         }}>
-                            <h1 style={{
-                                fontFamily: "Roboto",
-                                fontWeight: 'bold',
-                                color: 'rgb(160, 160, 160)',
-                                margin: '0px'
-                            }}>JRY</h1>
-                            <div style={{
-                                display: "grid",
-                                gridTemplateColumns: "repeat(3, 1fr)"
-                            }}>
-                                <div style={{
-                                    gridColumn: "1"
-                                }}>>
-                                    <p style={{
-                                        fontFamily: "Roboto",
-                                        color: 'rgb(160, 160, 160)'
-                                    }}>
-                                        {`Temperature: ${temp} \u00B0C`}
-                                    </p>
-                                </div>
-                                <div style={{
-                                    gridColumn: "2"
-                                }}>>
-                                    <p style={{
-                                        fontFamily: "Roboto",
-                                        color: 'rgb(160, 160, 160)'
-                                    }}>
-                                        {`Time: ${new Date(timest).toLocaleString()}`}
-                                    </p>
-                                </div>
-                                <div style={{
-                                    gridColumn: "3"
-                                }}>>
-                                    <p style={{
-                                        fontFamily: "Roboto",
-                                        color: 'rgb(160, 160, 160)'
-                                    }}>
-                                        {`Humidity: ${hum} %`}
-                                    </p>
-                                </div>
-                            </div>
                             <p style={{
+                                fontSize: "3vw",
+                                marginBlockStart:"0.5em",
+                                marginBlockEnd:"0.5em",
                                 fontFamily: "Roboto",
                                 color: 'rgb(160, 160, 160)'
                             }}>
-                                {`Temperature: ${temp} \u00B0C`}
-                                <br />
-                                {`Humidity: ${hum} %`}
-                                <br />
-                                {`Time: ${new Date(timest).toLocaleString()}`}
+                                {`${temp} \u00B0C`}
+                            </p>
+                        </div>
+                        <div style={{
+                            gridColumn: "2",
+                            textAlign:"center"
+                        }}>
+                            <p style={{
+                                fontSize: "3vw",
+                                marginBlockStart:"0.5em",
+                                marginBlockEnd:"0.5em",
+                                fontFamily: "Roboto",
+                                color: 'rgb(160, 160, 160)'
+                            }}>
+                                {/*`${time}`*/}
+                                <Time />
+                            </p>
+                        </div>
+                        <div style={{
+                            gridColumn: "3",
+                            textAlign:"center"
+                        }}>
+                            <p style={{
+                                fontSize: "3vw",
+                                marginBlockStart:"0.5em",
+                                marginBlockEnd:"0.5em",
+                                fontFamily: "Roboto",
+                                color: 'rgb(160, 160, 160)'
+                            }}>
+                                {`RH: ${hum} %`}
                             </p>
                         </div>
                     </div>
-
                 </div>
                 <button
                     type="button"

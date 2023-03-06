@@ -10,10 +10,9 @@
   "author": "JRY",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^8.1.0",
-    "express": "^4.17.1",
-    "mongoose": "^5.7.0",
-    "node-fetch": "^2.6.0",
-    "tinydb": "^0.1.0"
+    "dotenv": "^16.0.3",
+    "express": "^7.0.1",
+    "mongoose": "^7.0.1",
+    "node-fetch": "^3.3.0"
   }
 }

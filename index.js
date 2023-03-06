@@ -9,7 +9,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 const sensor1 = 'http://192.168.4.229:9467';
-const rootNorm = "https://intra.jry.fi";
 const root = "http://192.168.4.8:9467";
 
 app.use(express.static(path.join(__dirname, './client/build')));
@@ -31,7 +30,7 @@ if (!process.env.dev) {
 
         if (!process.env.dev) {
             try {
-                TempLog.find({date:{$gte:start,$lte:end}}, (err, data) => {
+                TempLog.find({ date: { $gte: start, $lte: end } }, (err, data) => {
                     res.send(data)
                 })
             } catch (error) {
